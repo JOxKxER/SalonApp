@@ -26,7 +26,7 @@ st.set_page_config(page_title="Karlie's Salon Manager", page_icon="✂️", layo
 st.title("✂️ Karlie's Salon Manager")
 st.subheader("Client Color Passports & Formulation Engine")
 
-menu = st.sidebar.selectbox("Navigation", ["Search History", "New Formula", "Edit Record", "Take-Home Label", "Database Backup"])
+menu = st.sidebar.selectbox("Navigation", ["Search History", "New Formula", "Edit Record", "Take-Home Label", "Database Backup", "User Guide"])
 
 records = load_data()
 
@@ -156,3 +156,27 @@ elif menu == "Database Backup":
             st.success(f"Database successfully backed up as '{backup_filename}'.")
         else:
             st.error("No database file found.")
+
+elif menu == "User Guide":
+    st.header("📖 Salon App User Guide & Instructions")
+    st.markdown("""
+    Welcome to Karlie's Salon Manager! This application keeps track of client color passports, precise formulation metrics, and take-home masks. Follow these simple steps for day-to-day use:
+
+    * **1. Taking Consistent Client Photos**
+      * Always place the physical **Color Calibration / Gray Balance Card** right next to the client's hair before snapping a photo.
+      * This ensures true-to-life white balance and exposure under salon lighting.
+
+    * **2. Creating a New Formula**
+      * Go to **New Formula** in the sidebar menu.
+      * Enter the client's name, select their baseline hair level (1–10), type their target vivid tone, and input the required product quantity in grams.
+      * Upload the photo taken with the calibration card, then click **Calculate & Save Formula**.
+
+    * **3. Searching Client History**
+      * Go to **Search History** and type any client's name to instantly pull up past formulations, dates, and archived calibration photos.
+
+    * **4. Generating Take-Home Labels**
+      * Go to **Take-Home Label**, enter the client's name, and view their custom mask instructions. You can download the text file directly to print or share.
+
+    * **5. Backing Up Records**
+      * Regularly visit **Database Backup** to generate timestamped safety copies of `client_records.json`.
+    """)
