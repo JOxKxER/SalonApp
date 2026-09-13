@@ -158,22 +158,45 @@ elif menu == "Database Backup":
             st.error("No database file found.")
 
 elif menu == "User Guide":
-    st.header("📖 Salon App User Guide & Formulation Reference")
+    st.header("📖 Salon App User Guide & Visual Color Reference")
     st.markdown("""
-    Welcome to Karlie's Salon Manager! This guide details both app navigation and how to accurately evaluate hair metrics during client consultations:
+    Welcome to Karlie's Salon Manager! Use this reference guide for navigating the app, evaluating hair levels, and viewing visual tone swatches:
 
-    * **1. Determining Baseline Hair Level (Scale 1–10)**
-      * **1–2:** Black to Darkest Brown
-      * **3–4:** Dark Brown to Medium Brown
-      * **5–6:** Light Brown to Dark Blonde
-      * **7–8:** Medium Blonde to Light Blonde
-      * **9–10:** Very Light Blonde to Platinum / Pale Yellow
-      * *Tip:* Compare the mid-lengths of the client's hair directly against your physical color ring under neutral light.
+    * **1. Baseline Hair Levels (Scale 1–10)**
+    """)
+    
+    # Render baseline level swatches
+    cols = st.columns(5)
+    levels_data = [
+        ("L1-2 (Dark)", "#1a1110"),
+        ("L3-4 (Med-Dark)", "#3b2f2f"),
+        ("L5-6 (Light Brn)", "#6e503b"),
+        ("L7-8 (Med Blonde)", "#b8976b"),
+        ("L9-10 (Platinum)", "#e6dfcc")
+    ]
+    for col, (label, hex_code) in zip(cols, levels_data):
+        with col:
+            st.markdown(f'<div style="background-color: {hex_code}; height: 35px; border-radius: 4px; border: 1px solid #ccc;"></div>', unsafe_allow_html=True)
+            st.caption(label)
 
-    * **2. Setting Target Tone**
-      * Enter the exact descriptive vivid shade requested (e.g., *Magenta*, *Electric Blue*, *Emerald Green*, *Vibrant Violet*).
-      * This dynamically labels the custom pigment breakdown in grams for easy mixing.
+    st.markdown("""
+    * **2. Target Vivid Tone Examples**
+    """)
+    
+    # Render vivid tone swatches
+    vivid_cols = st.columns(4)
+    vivid_data = [
+        ("Magenta", "#d90429"),
+        ("Electric Blue", "#0077b6"),
+        ("Emerald Green", "#2b9348"),
+        ("Vibrant Violet", "#7209b7")
+    ]
+    for col, (label, hex_code) in zip(vivid_cols, vivid_data):
+        with col:
+            st.markdown(f'<div style="background-color: {hex_code}; height: 35px; border-radius: 4px; border: 1px solid #ccc;"></div>', unsafe_allow_html=True)
+            st.caption(label)
 
+    st.markdown("""
     * **3. Calculating Total Product Quantity (Grams)**
       * **Short / Touch-Up:** ~50g to 75g
       * **Medium / Shoulder-Length:** ~100g
