@@ -43,12 +43,36 @@ if menu == "Search History":
         matches = [r for r in records if query in r['client_name'].lower()]
         if matches:
             st.success(f"Found {len(matches)} record(s):")
-            for r in matches:
+            for idx, r in enumerate(matches):
                 st.markdown(f"**Client:** {r['client_name']} | **Date:** {r['date']}")
                 st.text(f"Baseline Level: {r['base_level']} | Target Shade: {r['target_tone']}")
                 st.json(r['formula'])
+                
+                # Cost Estimator display
+                base_grams = r['formula'].get("Neutral Base (Grams)", 0)
+                pigment_key = next((k for k in r['formula'] if "Direct Pigment" in k), "")
+                pigment_grams = r['formula'].get(pigment_key, 0)
+                est_cost = (base_grams * 0.05) + (pigment_grams * 0.18)
+                st.caption(f"Estimated Product Cost: ${est_cost:.2f} ($0.05/g base, $0.18/g pigment)")
+
                 if "photo_path" in r and r["photo_path"] and os.path.exists(r["photo_path"]):
                     st.image(r["photo_path"], caption=f"Calibration Ref - {r['client_name']}", width=300)
+                
+                # One-Tap Quick Re-Order Button
+                if st.button(f"Repeat Last Formula for {r['client_name']}", key=f"repeat_{idx}"):
+                    repeat_record = {
+                        "client_name": f"{r['client_name']} (Repeat Visit)",
+                        "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                        "base_level": r['base_level'],
+                        "target_tone": r['target_tone'],
+                        "formula": r['formula'],
+                        "photo_path": r.get("photo_path", "")
+                    }
+                    records.append(repeat_record)
+                    save_json(DB_FILE, records)
+                    st.success(f"Successfully duplicated last formula as a new session for {r['client_name']}!")
+                    st.rerun()
+
                 st.markdown("---")
         else:
             st.warning("No matching records found.")
@@ -113,7 +137,6 @@ elif menu == "Preset Formulas":
         }
         st.json(preset_formula)
         
-        # Quick apply to client record
         quick_client = st.text_input("Assign Preset to Client Name:")
         if st.button("Save Preset to Client Passport"):
             if quick_client:
@@ -248,8 +271,8 @@ elif menu == "User Guide":
             st.caption(label)
 
     st.markdown("""
-    * **3. Preset Formulas**
-      * Use the **Preset Formulas** menu to instantly load standard pre-calculated recipes without taking custom photos or entering manual hair slider levels.
+    * **3. One-Tap Re-Orders & Cost Estimator**
+      * Use the **Search History** view to instantly repeat a returning client's previous formula with one tap, or view real-time product cost breakdowns based on gram weight.
 
     * **4. What is a Color Calibration Card?**
       * **Definition:** A physical reference card featuring standard neutral blocks (such as 18% neutral gray, pure white, and absolute black) and optional standard color patches.
