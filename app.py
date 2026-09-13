@@ -155,7 +155,7 @@ elif menu == "Database Backup":
             shutil.copy(DB_FILE, backup_filename)
             st.success(f"Database successfully backed up as '{backup_filename}'.")
         else:
-            st.error("No database file found.")
+            st.error("No database file sent/found.")
 
 elif menu == "User Guide":
     st.header("📖 Salon App User Guide & Visual Color Reference")
@@ -165,7 +165,6 @@ elif menu == "User Guide":
     * **1. Baseline Hair Levels (Scale 1–10)**
     """)
     
-    # Render baseline level swatches
     cols = st.columns(5)
     levels_data = [
         ("L1-2 (Dark)", "#1a1110"),
@@ -176,14 +175,13 @@ elif menu == "User Guide":
     ]
     for col, (label, hex_code) in zip(cols, levels_data):
         with col:
-            st.markdown(f'<div style="background-color: {hex_code}; height: 35px; border-radius: 4px; border: 1px solid #ccc;"></div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="background-color: {hex_0 if "hex_0" in locals() else hex_code}; height: 35px; border-radius: 4px; border: 1px solid #ccc;"></div>', unsafe_allow_html=True)
             st.caption(label)
 
     st.markdown("""
     * **2. Target Vivid Tone Examples**
     """)
     
-    # Render vivid tone swatches
     vivid_cols = st.columns(4)
     vivid_data = [
         ("Magenta", "#d90429"),
@@ -202,6 +200,8 @@ elif menu == "User Guide":
       * **Medium / Shoulder-Length:** ~100g
       * **Long / Thick Hair:** ~150g to 200g+
 
-    * **4. Taking Calibration Photos**
-      * Place the physical gray balance/color card right beside the hair strand before snapping the photo via the upload slot to lock in true color representation.
+    * **4. What is a Color Calibration Card?**
+      * **Definition:** A physical reference card featuring standard neutral blocks (such as 18% neutral gray, pure white, and absolute black) and optional standard color patches.
+      * **Purpose:** Indoor salon lighting (warm halogen bulbs, cool fluorescent tubes, or mixed LEDs) creates color casts that trick phone cameras into distorting true hair shades. 
+      * **How to Use:** Hold or place the physical card right next to the client's hair strand when taking the photo. This provides a universal reference point so white balance and exposure remain consistent across different visits and lighting conditions.
     """)
