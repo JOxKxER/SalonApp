@@ -158,25 +158,27 @@ elif menu == "Database Backup":
             st.error("No database file found.")
 
 elif menu == "User Guide":
-    st.header("📖 Salon App User Guide & Instructions")
+    st.header("📖 Salon App User Guide & Formulation Reference")
     st.markdown("""
-    Welcome to Karlie's Salon Manager! This application keeps track of client color passports, precise formulation metrics, and take-home masks. Follow these simple steps for day-to-day use:
+    Welcome to Karlie's Salon Manager! This guide details both app navigation and how to accurately evaluate hair metrics during client consultations:
 
-    * **1. Taking Consistent Client Photos**
-      * Always place the physical **Color Calibration / Gray Balance Card** right next to the client's hair before snapping a photo.
-      * This ensures true-to-life white balance and exposure under salon lighting.
+    * **1. Determining Baseline Hair Level (Scale 1–10)**
+      * **1–2:** Black to Darkest Brown
+      * **3–4:** Dark Brown to Medium Brown
+      * **5–6:** Light Brown to Dark Blonde
+      * **7–8:** Medium Blonde to Light Blonde
+      * **9–10:** Very Light Blonde to Platinum / Pale Yellow
+      * *Tip:* Compare the mid-lengths of the client's hair directly against your physical color ring under neutral light.
 
-    * **2. Creating a New Formula**
-      * Go to **New Formula** in the sidebar menu.
-      * Enter the client's name, select their baseline hair level (1–10), type their target vivid tone, and input the required product quantity in grams.
-      * Upload the photo taken with the calibration card, then click **Calculate & Save Formula**.
+    * **2. Setting Target Tone**
+      * Enter the exact descriptive vivid shade requested (e.g., *Magenta*, *Electric Blue*, *Emerald Green*, *Vibrant Violet*).
+      * This dynamically labels the custom pigment breakdown in grams for easy mixing.
 
-    * **3. Searching Client History**
-      * Go to **Search History** and type any client's name to instantly pull up past formulations, dates, and archived calibration photos.
+    * **3. Calculating Total Product Quantity (Grams)**
+      * **Short / Touch-Up:** ~50g to 75g
+      * **Medium / Shoulder-Length:** ~100g
+      * **Long / Thick Hair:** ~150g to 200g+
 
-    * **4. Generating Take-Home Labels**
-      * Go to **Take-Home Label**, enter the client's name, and view their custom mask instructions. You can download the text file directly to print or share.
-
-    * **5. Backing Up Records**
-      * Regularly visit **Database Backup** to generate timestamped safety copies of `client_records.json`.
+    * **4. Taking Calibration Photos**
+      * Place the physical gray balance/color card right beside the hair strand before snapping the photo via the upload slot to lock in true color representation.
     """)
