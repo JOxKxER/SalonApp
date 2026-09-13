@@ -1,0 +1,22 @@
+[
+    {
+        "client_name": "Jane Doe",
+        "date": "2026-09-13 16:16",
+        "base_level": 6,
+        "target_tone": "Electric Blue",
+        "formula": {
+            "Neutral Base (Grams)": 82.0,
+            "Direct Pigment (Electric Blue) (Grams)": 18.0
+        }
+    },
+    {
+        "client_name": "Jane Doe",
+        "date": "2026-09-13 16:17",
+        "base_level": 5,
+        "target_tone": "magenta",
+        "formula": {
+            "Neutral Base (Grams)": 16.4,
+            "Direct Pigment (magenta) (Grams)": 3.6
+        }
+    }
+]
