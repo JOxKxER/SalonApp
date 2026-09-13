@@ -24,6 +24,13 @@ def save_json(filename, data):
 
 st.set_page_config(page_title="Karlie's Salon Manager", page_icon="✂️", layout="centered")
 
+# Prominent Menu Helper Banner for Mobile Users
+st.markdown("""
+<div style="background-color: #ff4b4b; color: white; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 15px; font-weight: bold;">
+    📱 Tap the <b>[ >> ] Menu Arrow</b> at the very top-left above to switch between New Formula, Search History, and Presets!
+</div>
+""", unsafe_allow_html=True)
+
 st.title("✂️ Karlie's Salon Manager")
 st.subheader("Client Color Passports & Formulation Engine")
 
@@ -48,7 +55,6 @@ if menu == "Search History":
                 st.text(f"Baseline Level: {r['base_level']} | Target Shade: {r['target_tone']}")
                 st.json(r['formula'])
                 
-                # Cost Estimator display
                 base_grams = r['formula'].get("Neutral Base (Grams)", 0)
                 pigment_key = next((k for k in r['formula'] if "Direct Pigment" in k), "")
                 pigment_grams = r['formula'].get(pigment_key, 0)
@@ -58,7 +64,6 @@ if menu == "Search History":
                 if "photo_path" in r and r["photo_path"] and os.path.exists(r["photo_path"]):
                     st.image(r["photo_path"], caption=f"Calibration Ref - {r['client_name']}", width=300)
                 
-                # One-Tap Quick Re-Order Button
                 if st.button(f"Repeat Last Formula for {r['client_name']}", key=f"repeat_{idx}"):
                     repeat_record = {
                         "client_name": f"{r['client_name']} (Repeat Visit)",
